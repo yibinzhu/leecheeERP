@@ -1,0 +1,133 @@
+
+     <view class="weui-cells__title">服务类型</view>
+        <view class="weui-cells weui-cells_after-title">
+            <radio-group bindchange="radioChange">
+                <label class="weui-cell weui-check__label" wx:for="{{radioItems}}" wx:key="value">
+                    <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+
+                    <view class="weui-cell__bd">{{item.name}}</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                        <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                    </view>
+                </label>
+            </radio-group>
+        </view>
+
+     <view>
+       <view class="weui-cells__title">上传商品或单据<text style='float:right;color:#888888'>{{pics.length}}/9</text></view>
+                      <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                              
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploaderFiles">
+                                        <block wx:for="{{pics}}" wx:key="*this">
+                                            <view class="weui-uploader__file" id="{{item}}" style='position: relative;'>
+                                                <image bindtap="handleImagePreview" class="weui-uploader__img" src="{{item}}" mode="aspectFill" style='display:block' data-idx="{{index}}" /><view style='text-align:center;font-size:15px;' bindtap='dialog_delImg' data-idx="{{index}}">删除</view>
+                                            </view>
+                                        </block>
+                                    
+                                    </view>
+                                    <view class="weui-uploader__input-box">
+                                        <view class="weui-uploader__input" bindtap="chooseImg" wx:if="{{pics.length < 9}}"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                  </view>
+              </view>
+                <view class="weui-cells__title">订单信息</view>
+                <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell weui-cell_access" bindtap='addGoodsInfo'>
+                <view class="weui-cell__bd">添加商品信息 <icon type="success_no_circle" size="18" hidden='{{bills.length>0?false:true}}' style="margin-left:5px"></icon></view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+            
+        </view>
+
+<view class="weui-cells__title">取货地址</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd" style="width: 105px">
+                    <picker bindchange="bindBuildingChange" value="{{countryCodeIndex}}" range="{{building}}">
+                        <view class="weui-select">{{building[buildingIndex]}}</view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd weui-cell__bd_in-select-before">
+                    <input class="weui-input" placeholder="详细地址" bindblur="getAddress" value="{{store_address}}"/>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">备注</view>
+         <view class="weui-cells weui-cells_after-title" hidden="{{ showMask ? true :false }}">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea class="weui-textarea" style="height: 3.3em;" value='{{comment}}' placeholder='{{comment_placeholder}}' bindblur="getComment"/>
+                    <view class="weui-textarea-counter">{{comment.length}}/200</view>
+                </view>
+            </view>
+        </view>
+
+
+          <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="readyToUpload">立即下单</button>
+        </view>
+
+<!--屏幕背景变暗的背景  -->
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <!--弹出框  -->
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}" catchtouchmove='catchTouch'>
+    <!-- 商品信息弹窗页面开始 -->
+      <scroll-view
+        scroll-y
+    style="height: 500px;"
+    bindscrolltoupper="upper"
+    bindscrolltolower="lower"
+    bindscroll="scroll">
+ <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <image src="{{pics.length == 0?'../../images/pic_160.png':pics[0]}}" style="width: 50px; height: 50px; display: block" mode="aspectFill"/>
+                </view>
+                <view class="weui-cell__bd">
+                     <view>{{radioItems[0].checked == true ?radioItems[0].name:radioItems[1].name}}</view>
+                    <view style="font-size: 13px;color: #888888;">共{{bills.length}}件商品</view>
+                </view>
+                <view class='weui-cell__ft'><button type='primary' size="mini" plain="true" bindtap="hideModal">确定</button></view>
+            </view>
+            </view>
+
+                <view class="weui-cells__title">商品信息</view>
+                <view class="weui-cells weui-cells_after-title">
+
+                  <view wx:for="{{bills}}" wx:key="{{index}}">
+                      <view class="weui-flex">
+                          <view class="weui-flex__item" style='text-align:center;margin:5px 0;'>{{item.color}}</view>
+                          <view class="weui-flex__item" style='text-align:center;margin:5px 0;'>{{item.size}}</view>
+                          <view class="weui-flex__item" style='text-align:center;margin:5px 0;'><text class='text-conmment'>数量</text> {{item.count}}</view>
+                          <view class="weui-flex__item" style='text-align:center;margin:5px 0;'><text class='text-conmment'>₩</text> {{item.price}}</view>
+                            <view class="weui-flex__item" style='text-align:center;margin:5px 0;'><icon data-idx="{{index}}" type="cancel" size="23" bindtap='dialog_delBillItem'></icon></view>
+                      </view>
+        
+                  </view>
+                    <form bindsubmit="formSubmit" bindreset="formReset">
+                       <view class="weui-cell weui-cell_input">
+                      <view class="weui-flex">
+                          <view class="weui-flex__item"><view class="placeholder"><input  value='{{input_color}}' name='color' class="weui-input" placeholder="输入颜色" placeholder-style='font-size:10px'/></view></view>
+                          <view class="weui-flex__item"><view class="placeholder"><input  value='{{input_size}}' name='size' class="weui-input" placeholder="输入尺码" placeholder-style='font-size:10px'/></view></view>
+                          <view class="weui-flex__item"><view class="placeholder"><input  value='{{input_count}}' name='count' class="weui-input" placeholder="输入数量" placeholder-style='font-size:10px' type='number'/></view></view>
+                          <view class="weui-flex__item"><view class="placeholder"><input  value='{{input_price}}' name='price' class="weui-input" placeholder="输入单价" placeholder-style='font-size:10px' type='number'/></view></view>
+                      </view>
+               
+                       <view class="weui-cell__ft"><button form-type="submit" class="weui-btn" style='width:50px;height:22px;font-size:10px;'>添加</button></view>
+                  </view>
+                        </form>
+                </view>
+        
+   </scroll-view>
+
+    <!-- 商品信息弹窗页面结束 -->
+  </view>

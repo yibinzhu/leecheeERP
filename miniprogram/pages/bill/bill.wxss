@@ -1,0 +1,5 @@
+/* pages/bill/bill.wxss */
+.text-conmment{
+  font-size: 13px;
+  color: #888888;
+}

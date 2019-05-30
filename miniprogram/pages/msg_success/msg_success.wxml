@@ -1,0 +1,25 @@
+<view class="page">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="93"></icon>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">下单成功</view>
+            <view class="weui-msg__desc">您已成功下单，可以在我的订单中查看订单采购进度</view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button class="weui-btn" type="primary" bindtap='goBack'>继续下单</button>
+                <button  bindtap='goBack' class="weui-btn" type="default" >关闭</button>
+            </view>
+        </view>
+        <view class="weui-msg__extra-area">
+            <view class="weui-footer">
+                <view class="weui-footer__links">
+                    <!-- <navigator url="" class="weui-footer__link">底部链接文本</navigator> -->
+                </view>
+                <view class="weui-footer__text">Copyright © 2019 obada</view>
+            </view>
+        </view>
+    </view>
+</view>

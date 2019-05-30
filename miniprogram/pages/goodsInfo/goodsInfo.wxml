@@ -1,0 +1,52 @@
+<!--pages/goodsInfo/goodsInfo.wxml-->
+   <view class="weui-cells__title">商品信息</view>
+        <view class="weui-cells weui-cells_after-title">
+          
+              <view class="weui-cell">
+                <view class="weui-cell__bd">尺码</view>
+                <view class="weui-cell__ft">
+                    <picker bindchange="bindSizeChange" value="{{sizeIndex}}" range="{{sizes}}">
+                        <view >{{sizes[sizeIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
+
+                  <view class="weui-cell">
+                <view class="weui-cell__bd">颜色</view>
+                <view class="weui-cell__ft">
+                    <picker bindchange="bindcolorChange" value="{{colorIndex}}" range="{{colors}}">
+                        <view >{{colors[colorIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
+
+                <view class="weui-cell">
+                <view class="weui-cell__bd">价格</view>
+                <view class="weui-cell__ft">
+                       <input class="weui-input" placeholder="输入价格" type="number"/>
+                </view>
+              
+            </view>
+
+                     <view class="weui-cell">
+                <view class="weui-cell__bd">数量</view>
+                <view class="weui-cell__ft">
+                        <input class="weui-input" placeholder="输入数量" type="number"/>
+                </view>
+              
+            </view>
+        </view>
+
+  <view class="weui-cells__title">备注信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" />
+                    <view class="weui-textarea-counter">0/200</view>
+                </view>
+            </view>
+        </view>
+
+            <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
+        </view>

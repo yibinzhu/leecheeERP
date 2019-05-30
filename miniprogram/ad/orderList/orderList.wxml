@@ -1,0 +1,136 @@
+<import src="../../img-loader/img-loader.wxml"/>
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                <!-- 选项一的内容 -->
+
+                 <view class="weui-panel" wx:for="{{orderData}}" wx:for-item="orderItem" wx:key='id'>
+
+                 <!-- <navigator url='../bill/bill?id={{orderData._id}}'> -->
+
+            <view class="weui-panel__hd weui-flex">
+               <view ><view>订单编号：{{orderItem.code}}</view></view>
+            <view class="weui-flex__item" style='float:right'><view style="text-align:right;"><view class='text-comment'style='text-align:right;color:#179B16;display:{{orderItem.type == "1"?"block":"none"}}'>已完成</view>
+                        <view class='text-comment'style='text-align:right;color:#f10215;display:{{orderItem.type == "1"?"none":"block"}}'>未完成</view>
+              </view>
+            </view>
+            </view>
+
+            <navigator url='../orderDetail/orderDetail?code={{orderItem.code}}'>
+            
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+      <view class="weui-flex">
+            <view><view class="placeholder"><image src="../../images/bill-icon.png" style="width: 30px; height: 30px; display: block;margin-right:10px"/></view></view>
+            <view><view class="placeholder"></view></view>
+            <view class="weui-flex__item"><view class="placeholder">
+                <view class='text-conmment'>{{orderItem.address}}</view>
+                <view class='text-conmment'>{{orderItem.time}}</view>
+            </view></view>
+            <view><view class="placeholder">
+              <view class="weui-flex__item" style="text-align:right"><view><text class='text-conmment'>合计：</text>₩{{orderItem.totalPrice}}</view><view style="font-size: 13px;color: #888888;"><text>共</text>{{orderItem.totalCount}}<text>件商品</text></view></view>
+            </view></view>
+        </view>
+
+            <view style="float:right;margin:0 0 10px 0">
+              <!-- <navigator url='../bill/bill?id={{orderItem._id}}'><button class="weui-btn mini-btn" type="warn" size="mini">详情</button></navigator> -->
+            </view>
+   
+                </view>
+            </view>
+            </navigator>
+        </view>
+
+        
+         <!-- 选项一的内容结束-->
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                <!-- 选项二的内容 -->
+    <view class="weui-panel" wx:for="{{orderData}}" wx:for-item="orderItem" wx:key='id'>
+     <view style='display:{{orderItem.type == "1"?"block":"none"}}'>
+            <view class="weui-panel__hd weui-flex">
+               <view ><view>订单编号：{{orderItem.code}}</view></view>
+            <view class="weui-flex__item" style='float:right'><view style="text-align:right;"><view class='text-comment'style='text-align:right;color:#179B16;display:{{orderItem.type == "1"?"block":"none"}}'>已完成</view>
+                        <view class='text-comment'style='text-align:right;color:#f10215;display:{{orderItem.type == "1"?"none":"block"}}'>未完成</view>
+              </view>
+            </view>
+            </view>
+
+            <navigator url='../orderDetail/orderDetail?code={{orderItem.code}}'>
+            
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+      <view class="weui-flex">
+            <view><view class="placeholder"><image src="../../images/bill-icon.png" style="width: 30px; height: 30px; display: block;margin-right:10px"/></view></view>
+            <view><view class="placeholder"></view></view>
+            <view class="weui-flex__item"><view class="placeholder">
+                <view class='text-conmment'>{{orderItem.address}}</view>
+                <view class='text-conmment'>{{orderItem.time}}</view>
+            </view></view>
+            <view><view class="placeholder">
+              <view class="weui-flex__item" style="text-align:right"><view><text class='text-conmment'>合计：</text>₩{{orderItem.totalPrice}}</view><view style="font-size: 13px;color: #888888;"><text>共</text>{{orderItem.totalCount}}<text>件商品</text></view></view>
+            </view></view>
+        </view>
+
+            <view style="float:right;margin:0 0 10px 0">
+            </view>
+   
+                </view>
+            </view>
+            </navigator>
+        </view>
+      </view>
+                 <!-- 选项二的内容结束 -->
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+                <!-- 选项三的内容 -->
+ <view class="weui-panel" wx:for="{{orderData}}" wx:for-item="orderItem" wx:key='id'>
+     <view style='display:{{orderItem.type == "0"?"block":"none"}}'>
+            <view class="weui-panel__hd weui-flex">
+               <view ><view>订单编号：{{orderItem.code}}</view></view>
+            <view class="weui-flex__item" style='float:right'><view style="text-align:right;"><view class='text-comment'style='text-align:right;color:#179B16;display:{{orderItem.type == "1"?"block":"none"}}'>已完成</view>
+                        <view class='text-comment'style='text-align:right;color:#f10215;display:{{orderItem.type == "1"?"none":"block"}}'>未完成</view>
+              </view>
+            </view>
+            </view>
+
+            <navigator url='../orderDetail/orderDetail?code={{orderItem.code}}'>
+            
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+      <view class="weui-flex">
+            <view><view class="placeholder"><image src="../../images/bill-icon.png" style="width: 30px; height: 30px; display: block;margin-right:10px"/></view></view>
+            <view><view class="placeholder"></view></view>
+            <view class="weui-flex__item"><view class="placeholder">
+                <view class='text-conmment'>{{orderItem.address}}</view>
+                <view class='text-conmment'>{{orderItem.time}}</view>
+            </view></view>
+            <view><view class="placeholder">
+              <view class="weui-flex__item" style="text-align:right"><view><text class='text-conmment'>合计：</text>₩{{orderItem.totalPrice}}</view><view style="font-size: 13px;color: #888888;"><text>共</text>{{orderItem.totalCount}}<text>件商品</text></view></view>
+            </view></view>
+        </view>
+
+            <view style="float:right;margin:0 0 10px 0">
+            </view>
+   
+                </view>
+            </view>
+            </navigator>
+        </view>
+      </view>
+                 <!-- 选项三的内容结束-->
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

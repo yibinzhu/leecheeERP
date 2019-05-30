@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/order/order",
+    "pages/index/index",
+    "pages/userConsole/userConsole",
+    "pages/storageConsole/storageConsole",
+    "pages/databaseGuide/databaseGuide",
+    "pages/addFunction/addFunction",
+    "pages/deployFunctions/deployFunctions",
+    "pages/chooseLib/chooseLib",
+    "pages/openapi/openapi",
+    "pages/my/my",
+    "pages/bill/bill",
+    "pages/checkList/checkList",
+    "pages/logs/logs",
+    "pages/msg_success/msg_success",
+    "pages/msg_fail/msg_fail",
+    "pages/goodsInfo/goodsInfo",
+    "pages/address/address"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "obada",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#333333",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/order/order",
+        "iconPath": "images/dingdan-off.png",
+        "selectedIconPath": "images/dingdan-on.png",
+        "text": "快速下单"
+      },
+      {
+        "pagePath": "pages/checkList/checkList",
+        "iconPath": "images/gouwuche-off.png",
+        "selectedIconPath": "images/gouwuche-on.png",
+        "text": "查看订单"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/wode-off.png",
+        "selectedIconPath": "images/wode-on.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
