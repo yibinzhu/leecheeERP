@@ -1,0 +1,3 @@
+<view class='weui-cells' wx:if="{{orderData}}" style='margin-top:0;'>
+<list orderData="{{orderData}}" nav_url="{{nav_url}}"></list>
+</view>

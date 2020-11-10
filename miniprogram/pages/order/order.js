@@ -2,6 +2,8 @@ import { $init, $digest } from '../../utils/common.util'
 var mUploadImg = require("../../module/uploadImg.js")
 var util = require("../../utils/util.js")
 var mConfigs = require('../../utils/config.js')
+import languages from '../../utils/locales';
+import event from '../../utils/event';
 var app = getApp()
 Page({
 
@@ -11,9 +13,9 @@ Page({
   data: {
     pics: [],
     bills: [],
-    building: ['OT', 'APM', 'UUS', '其他'],
-    buildingIndex: 0,// 0:ot 1:apm 2:uus 3:其他
-    billItem: { itemid: '', color: '', size: '', count: '', price: '', status: 0, pickuptime: '',totalPrice: 0},
+    building: ['OT', 'APM', 'UUS', 'QUEENS','其他'],
+    buildingIndex: 0,// 0:ot 1:apm 2:uus 3:QUEENS,4:其他
+    billItem: { itemid: '', color: '', size: '', count: '', price: '', status: "0", pickuptime: '',totalPrice: 0},
     input_color: '',
     input_size: '',
     input_count: '',
@@ -21,13 +23,16 @@ Page({
     store_address: '',
     comment: '',
     service_type: '',
-    comment_placeholder: '备注信息',
+    comment_placeholder:'',
     showMask: false,
     radioItems: [
-      { name: '补款', value: '0', checked: false },
-      { name: '代取货', value: '1', checked: true }
+      { name:'补款', value: '0', checked: false },
+      { name:'代取货', value: '1', checked: true }
     ],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    multiArray: [['OT', 'APM', 'UUS', 'QUEENS', '其他'], ['B2F', 'B1F', '1F', '2F', '3F', '4F']],
+    multiIndex: [0, 0],
+    language:{}
   },
   bindGetUserInfo(e) {
     console.log(e.detail.userInfo)
@@ -52,7 +57,8 @@ Page({
       console.log('bills is null');
     }
     if (!this.data.store_address) {
-      return 2 //未添加地址
+      return 2 //未添加详细地址
+      console.log('detail address is null');
     }
     return 3
   },
@@ -63,7 +69,7 @@ Page({
       buildingIndex: e.detail.value
     })
   },
-  getAddress: function (e) {
+  getAddressDetail: function (e) {
     console.log('address is =>' + e.detail.value);
     this.setData({
       store_address: e.detail.value
@@ -134,21 +140,26 @@ Page({
     let item_size = e.detail.value.size;
     let item_count = e.detail.value.count;
     let item_price = e.detail.value.price;
+    let item_imgNum = e.detail.value.imgNum;
 
-    if (item_color.length > 0 && item_size.length && item_count.length && item_price.length) {
+    if (item_price == '' || item_price == undefined) {
+      item_price = 0
+    }
+
+    if (item_imgNum.length > 0 && item_color.length > 0 && item_size.length && item_count.length){
 
 // 创建商品信息，并加入商品列表
       let newBillItem = {};
       newBillItem.index = itemIndex;
+      newBillItem.imgNum = item_imgNum;
       newBillItem.color = item_color;
       newBillItem.size = item_size;
       newBillItem.count = item_count;
       newBillItem.pickupCount = 0;
       newBillItem.price = item_price;
-      newBillItem.status = 0;
+      newBillItem.status = "0";
       newBillItem.pickuptime = '';
-      let totalPrice = parseInt(item_count) * parseInt(item_price);
-      newBillItem.totalPrice = totalPrice;
+      newBillItem.totalPrice = 0;
 
       newData = this.data.bills;
       newData.push(newBillItem)
@@ -159,7 +170,7 @@ Page({
     } else {
       wx.showToast({
         title: '请填写完整信息',
-        icon: 'success',
+        icon: 'none',
         duration: 1000
       });
     }
@@ -268,8 +279,6 @@ Page({
   },
 
   radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value);
-
     var radioItems = this.data.radioItems;
     for (var i = 0, len = radioItems.length; i < len; ++i) {
       radioItems[i].checked = radioItems[i].value == e.detail.value;
@@ -277,8 +286,9 @@ Page({
 
     this.setData({
       radioItems: radioItems,
-      service_type: e.detail.value
+      service_type: radioItems[e.detail.value].name
     });
+
   },
 
   chooseImg: function () {
@@ -313,7 +323,21 @@ Page({
   },
   readyToUpload: function () {
 
-    console.log(util.createOrderNumber(this.data.buildingIndex));
+    if (!app.globalData.logined) {
+      wx.showToast({
+        title: '下单前请先登陆',
+        icon: 'none'
+      })
+
+      setTimeout(()=>{
+        wx.switchTab({
+          url: '../my/my',
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      },1000)
+    }else{
 
     let flag = this.checkInput();
 
@@ -324,17 +348,16 @@ Page({
       this.openToast('请填写商品信息');
     }
     else if (flag == 2) {
-      this.openToast('请填写地址');
+      this.openToast('请填写完整地址');
     }
     else {
       var that = this;
       wx.showModal({
-        title: '上传图片',
-        content: '是否上传图片？',
+        title: '确认',
+        content: '是否提交订单？',
         confirmText: "是",
         cancelText: "否",
         success: function (res) {
-          console.log(res);
           if (res.confirm) {
             that.uploadimg();
           } else {
@@ -343,23 +366,13 @@ Page({
         }
       });
     }
-
-  },
+  }},
   uploadimg: function () {//这里触发图片上传的方法
+    let that = this
     let userId = app.globalData.openid
 
     if(userId == null){
-     wx.showToast({
-       title: '请先登陆',
-       icon: '',
-       image: '',
-       duration: 0,
-       mask: true,
-       success: function(res) {},
-       fail: function(res) {},
-       complete: function(res) {},
-     })
-      return
+    this.login()
     }
     wx.showLoading({
       title: '上传中...',
@@ -367,7 +380,7 @@ Page({
     })
 
 // 上传商品信息
-    let code = util.createOrderNumber(this.data.buildingIndex);//生成订单号码
+    let code = util.createOrderNumber();//生成订单号码
 
     let dataBody = {
       code: '',
@@ -379,12 +392,22 @@ Page({
       comment: '',
       user:'',
       time:'',
-      images:[]
+      images:[],
+      unified:[],
+      service_type:'',
+      timestamp:0
     }
 
     dataBody.code = code;
     dataBody.type = mConfigs.ORDER_UNDONE;
     dataBody.bills = JSON.stringify(this.data.bills);
+    dataBody.service_type = that.data.service_type
+    //生成图片地址数组
+    for (let i = 0; i < this.data.pics.length; i++) {
+      let lastName = this.data.pics[i].match(/\.[^.]+?$/)[0]
+      dataBody.images.push(mConfigs.FILEIDHOST+code + '-' + i + lastName)
+    }
+
  
     let priceItem = 0;
     // 计算订单总价格
@@ -399,15 +422,20 @@ Page({
       countItem += parseInt(this.data.bills[i].count);
     }
     dataBody.totalCount = countItem;
+    let address_index = that.data.multiIndex
+    let address = that.data.multiArray[0][that.data.multiIndex[0]] + ',' + that.data.multiArray[1][that.data.multiIndex[1]]+ " "+this.data.store_address;
 
-    dataBody.address = this.data.building[this.data.buildingIndex] + " "+this.data.store_address;
+    dataBody.address = address
     dataBody.comment = this.data.comment;
     dataBody.user = userId;
     var myDate = new Date()
     let orderTime = util.formatTime(myDate);
+    dataBody.timestamp = new Date(myDate).getTime()
     dataBody.time = orderTime
-    console.log('databody is=>' + JSON.stringify(dataBody));
+    dataBody.unified = that.data.multiIndex
+
     
+    // 上传商品信息
     this.onAdd(dataBody)
 
   },
@@ -428,20 +456,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    $init(this);
-    // 查看是否授权
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success(res) {
-              console.log(res.userInfo)
-            }
-          })
-        }
-      }
-    })
+    this.setLanguage();
+    event.on('languageChanged', this, this.setLanguage);
 
   },
   onAdd: function (uploadData) {
@@ -481,7 +497,27 @@ Page({
       }
     })
   },
- 
+  login: function () {
+    var that = this
+    wx.cloud.callFunction({
+      // 需调用的云函数名
+      name: 'login',
+      // 传给云函数的参数
+      data: {
+
+      },
+      // 成功回调
+      complete: res => {
+        app.globalData.logined = true
+
+        wx.setStorage({
+          key: 'openid',
+          data: res.result.openid,
+        });
+        app.globalData.openid = res.result.openid;
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -493,7 +529,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setLanguage()
   },
 
   /**
@@ -529,5 +565,55 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  pickchange: function (e) { // picker发送选择改变时候触发 通过e.detail.value获取携带的值   //   [0,1,2]   
+    console.log('e.detail.value获取携带的值=>' + e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value  // 直接更新即可
+    })
+  },
+  bindMultiPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value
+    })
+  },
+  bindMultiPickerColumnChange: function (e) {
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
+    switch (e.detail.column) {
+      case 0:
+        switch (data.multiIndex[0]) {
+          case 0:
+            data.multiArray[1] = ['B2F', 'B1F', '1F', '2F', '3F', '4F'];//ot
+            break;
+          case 1:
+            data.multiArray[1] = ['B1F','1F', '2F', '3F', '4F', '5F'];//apm
+            break;
+          case 2:
+            data.multiArray[1] = ['1F', '2F', '3F', '4F'];//uus
+            break;
+          case 3:
+            data.multiArray[1] = ['1F', '2F', '3F', '4F', '5F'];//queens
+            break;
+          case 4:
+            data.multiArray[1] = [''];//其他
+            break;
+        }
+        data.multiIndex[1] = 0;
+        break;
+    }
+    console.log(data.multiIndex);
+    this.setData(data);
+  },
+  setLanguage() {
+    let that = this
+    this.setData({
+      language: wx.T.getLanguage()
+    })
   }
 })

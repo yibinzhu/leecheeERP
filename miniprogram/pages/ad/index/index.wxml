@@ -1,0 +1,162 @@
+<view style='margin-bottom:80px;'>
+<block wx:if="{{PageCur=='orderList'}}">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <!-- <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block> -->
+                 <view id="0" class="weui-navbar__item {{activeIndex == 0 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{language.quanbu}}</view>
+                    </view>
+                     <view id="1" class="weui-navbar__item {{activeIndex == 1 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{language.weiwancheng}}</view>
+                    </view>
+                     <view id="2" class="weui-navbar__item {{activeIndex == 2 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{language.yiwancheng}}</view>
+                    </view>
+
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+              <!-- 选项一的内容 -->
+              <view class='weui-cells list-item'>
+              <list orderData="{{allOrderData}}" nav_url="{{nav_url}}" language="{{language}}"></list>
+              </view>
+
+             <!-- 选项一的内容结束-->
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                    <view class='weui-flex' style='background-color:white'>
+                    <view class='weui-flex__item sort-item' bindtap='doSortByTime'><text class='sort-btn'>{{language.shijianpaixv}}</text></view>
+                    <view class='weui-flex__item sort-item' bindtap='doSortByFloor'><text class='sort-btn'>{{language.loucengpaixv}}</text></view>
+                    </view>
+                <!-- 选项二的内容 -->
+                   <view class='weui-cells list-item'>
+              <list orderData="{{undoneOrderData}}" nav_url="{{nav_url}}" language="{{language}}"></list>
+              </view>
+                 <!-- 选项二的内容结束 -->
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          
+                <!-- 选项三的内容 -->
+                  <view class='weui-cells list-item'>
+              <list orderData="{{doneOrderData}}" nav_url="{{nav_url}}" language="{{language}}"></list>
+              </view>
+                 <!-- 选项三的内容结束-->
+                </view>
+            </view>
+        </view>
+</block>
+
+<view wx:if="{{PageCur=='setting'}}">
+
+<view class="weui-cells" style='display:{{_super?"block":"none"}}'>
+            <navigator url="../userList/userList" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                  <icon class='iconfont icon-group' style='color:#e54d42'></icon>
+                </view>
+                <view class="weui-cell__bd">{{language.yonghuliebiao}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="../adminList/adminList" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                  <icon class='iconfont icon-addressbook' style='color:#f37b1d'></icon>
+                </view>
+                <view class="weui-cell__bd">{{language.guanliyuanliebiao}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+</view>
+
+<view class="weui-cells">
+<navigator url="../orderSearch/orderSearch" hover-class="weui-cell_active" class="weui-cell weui-cell_access">
+    <view class="weui-cell__hd">
+     <icon class='iconfont icon-search' style='color:#8dc63f'></icon>
+    </view>
+    <view class="weui-cell__bd">{{language.dingdanchaxun}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</navigator>
+<navigator url="../xOrderList/xOrderList" hover-class="weui-cell_active" class="weui-cell weui-cell_access">
+    <view class="weui-cell__hd">
+     <icon class='iconfont icon-order' style='color:#39b54a'></icon>
+    </view>
+    <view class="weui-cell__bd">{{language.teshudingdan}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</navigator>
+<navigator url="../myBuyer/myBuyer" hover-class="weui-cell_active" class="weui-cell weui-cell_access">
+    <view class="weui-cell__hd">
+    <icon class='iconfont icon-addpeople' style='color:#fbbd08'></icon>
+    </view>
+    <view class="weui-cell__bd">{{language.wodekehu}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</navigator>
+<view class="weui-cell weui-cell_select">
+    <view class="weui-cell__bd">
+        <picker bindchange="changeLanguage" value="{{langIndex}}" range="{{languages}}">
+            <view class="weui-select"><icon style='color:#f37b1d' class='iconfont icon-interactive'/>{{languages[langIndex]}}</view>
+        </picker>
+    </view>
+</view>
+</view>
+
+
+<view class="weui-cells">
+<view class="weui-cell weui-cell_access" >
+    <view class="weui-cell__hd">
+     <icon class='iconfont icon-empty' style='color:#9c26b0'></icon>
+    </view>
+    <view class="weui-cell__bd" bindtap='clearStorageConfirm'>{{language.qingchuhuancun}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</view>
+</view>
+
+<view class="weui-cells">
+<view class="weui-cell weui-cell_access" >
+    <view class="weui-cell__hd">
+      <icon class='iconfont icon-send' style='color:#e03997'></icon>
+    </view>
+    <view class="weui-cell__bd" bindtap='logoutConfirm'>{{language.tuichu}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</view>
+</view>
+
+<view class="weui-footer" style='margin-top:20px;width:100%;height:20px;' bindlongpress='showPwdModal'>
+    <view class="weui-footer__text">Copyright © 2019 Leechee Co. Ltd</view>
+</view>
+
+ 
+  <!--屏幕背景变暗的背景  -->
+  <view class="commodity_screen" bindtap="hidePwdModal" wx:if="{{showPwdModalStatus}}"></view>
+  <!--弹出框  -->
+
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showPwdModalStatus}}" catchtouchmove='catchTouch'>
+
+<form bindsubmit="formSubmit">
+ <view class="weui-cells__title" style='height:25px;'>
+ <button class="weui-btn mini-btn" type="default" size="mini"  bindtap='hidePwdModal' style='float:left'>{{language.quxiao}}</button>
+ <button form-type="submit" class="mini-btn" type="default" size="mini" style='float:right'>{{language.queding}}</button>
+ </view>
+        <view class="weui-cells weui-cells_after-title" style='margin-top:10px;'>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="输入密码" password='true' name='password' />
+                </view>
+            </view>
+        </view>
+</form>
+</view>
+
+</view>
+</view>
+<view class="nav-bar">
+   <view class='nav-item' bindtap="NavChange" data-cur="orderList">
+    <icon class='iconfont icon-order' style='margin-right:0'></icon>
+    <text>{{language.dingdan}}</text>
+  </view>
+   <view class='nav-item' bindtap="NavChange" data-cur="setting">
+    <icon class='iconfont icon-setup' style='margin-right:0'></icon>
+    <text>{{language.guanli}}</text>
+  </view>
+</view>

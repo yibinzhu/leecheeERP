@@ -1,0 +1,136 @@
+<view class="page">
+    <!-- <view class="page__hd">
+        <view class="page__title" style='font-weight:900;font-size:18px;color:#888'>Leechee</view>
+        <view class="page__desc">管理员页面</view>
+    </view> -->
+    <view class="page__bd" style='margin-top:10px;'>
+        <view class="weui-grids">
+                <navigator url="../allList/allList" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/dingdanjihe.png" />
+                    <view class="weui-badge" style="position: absolute;top: -.4em;right: 1em;display:{{allNum?'block':'none'}}">{{allNum}}</view>
+                    </view>
+                    <view class="weui-grid__label">全部订单</view>
+                </navigator>
+                <navigator url="../undoneList/undoneList" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/dingdanchulizhong.png" />
+                    <view class="weui-badge" style="position: absolute;top: -.4em;right: 1em;display:{{undoneNum?'block':'none'}}">{{undoneNum}}</view>
+                    </view>
+                    <view class="weui-grid__label">未完成订单</view>
+                </navigator>
+                <navigator url="../doneList/doneList" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/dingdanyichenggong.png"/>
+                    <view class="weui-badge" style="position: absolute;top: -.4em;right: 1em;display:{{doneNum?'block':'none'}}">{{doneNum}}</view>
+                    </view>
+                    <view class="weui-grid__label">已完成订单</view>
+                </navigator>
+                 <navigator url="../todayOrder/todayOrder" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/yuyuedingdan.png" />
+                    <view class="weui-badge" style="position: absolute;top: -.4em;right: 1em;display:{{todayNum?'block':'none'}}">{{todayNum}}</view>
+                    </view>
+                    <view class="weui-grid__label">今日订单</view>
+                </navigator>
+                <navigator url="../myBuyer/myBuyer" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/jieban.png" />
+                    </view>
+                    <view class="weui-grid__label">我的客户</view>
+                </navigator>
+                  <navigator url="../xOrderList/xOrderList" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/dingdan.png" />
+                    </view>
+                    <view class="weui-grid__label">特殊订单</view>
+                </navigator>
+
+                <navigator url="../orderSearch/orderSearch" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/sousuo.png" />
+                    </view>
+                    <view class="weui-grid__label">订单查询</view>
+                </navigator>
+               
+                <navigator url="../../../images/icon_tabbar.png" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/dingdan.png" />
+                    </view>
+                    <view class="weui-grid__label">选项</view>
+                </navigator>
+                <navigator url="../setting/setting" class="weui-grid" hover-class="weui-grid_active">
+                    <view  style="position: relative;">
+                    <image class="weui-grid__icon" src="../../../images/ad/shezhi.png" />
+                    </view>
+                    <view class="weui-grid__label">设置</view>
+                </navigator>
+        </view>
+    </view>
+</view>
+
+<!-- <navigator url="../allList/allList">
+<view class='menu-container'>
+  <view class='menu-card'>
+    <view class='menu-title'><text style='font-size:1.5em;font-weight:bold;'>全</text>部订单</view>
+    <text class='menu-en'><text style='font-weight:bold;'>전</text>체주문</text>
+       <icon class='menu-icon iconfont icon-createtask_fill'></icon>
+    <view class='menu-count'>{{allNum}}</view>
+  </view>
+</view>
+</navigator>
+
+<navigator url="../undoneList/undoneList" >
+<view class='menu-container'>
+  <view class='menu-card'>
+    <view class='menu-title'><text style='font-size:1.5em;font-weight:bold;'>未</text>完成订单</view>
+    <text class='menu-en'><text style='font-weight:bold;'>미</text>완성주문</text>
+        <icon class='menu-icon iconfont icon-createtask_fill'></icon>
+    <view class='menu-count'>{{undoneNum}}</view>
+  </view>
+</view>
+</navigator>
+
+<navigator url="../doneList/doneList" >
+<view class='menu-container'>
+  <view class='menu-card'>
+    <view class='menu-title'><text style='font-size:1.5em;font-weight:bold;'>已</text>完成订单</view>
+    <text class='menu-en'><text style='font-weight:bold;'>완</text>성주문</text>
+           <icon class='menu-icon iconfont icon-createtask_fill'></icon>
+    <view class='menu-count'>{{doneNum}}</view>
+  </view>
+</view>
+</navigator>
+
+<navigator url="../todayOrder/todayOrder" >
+<view class='menu-container'>
+  <view class='menu-card'>
+    <view class='menu-title'><text style='font-size:1.5em;font-weight:bold;'>今</text>日订单</view>
+    <text class='menu-en'><text style='font-weight:bold;'>오</text>늘주문</text>
+           <icon class='menu-icon iconfont icon-createtask_fill'></icon>
+    <view class='menu-count'>{{todayNum}}</view>
+  </view>
+</view>
+</navigator>
+
+<navigator url="../myBuyer/myBuyer" >
+<view class='menu-container'>
+  <view class='menu-card'>
+    <view class='menu-title'><text style='font-size:1.5em;font-weight:bold;'>我</text>的买家</view>
+    <text class='menu-en'><text style='font-weight:bold;'>바</text>이어</text>
+        <icon class='menu-icon iconfont icon-group_fill'></icon>
+    <view class='menu-count'></view>
+  </view>
+</view>
+</navigator>
+
+<navigator url="../setting/setting" >
+<view class='menu-container'>
+  <view class='menu-card'>
+    <view class='menu-title'><text style='font-size:1.5em;font-weight:bold;'>设</text>置</view>
+    <text class='menu-en'><text style='font-weight:bold;'>관</text>리페이지</text>
+      <icon class='menu-icon iconfont icon-setup_fill'></icon>
+    <view class='menu-count'></view>
+  </view>
+</view>
+</navigator> -->

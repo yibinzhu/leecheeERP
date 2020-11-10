@@ -14,7 +14,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const createOrderNumber = function (buildingIndex){
+const createOrderNumber = function (){
   //商场代码+日期
   var date = new Date();
   var year =  date.getFullYear();
@@ -23,23 +23,8 @@ const createOrderNumber = function (buildingIndex){
   var hour = date.getHours();
   var minute = date.getMinutes();
   var  second = date.getSeconds();
-
-  var buildingCode = '';
-
-  switch(buildingIndex){
-    case 0:
-      buildingCode = 'O';
-    case 1:
-      buildingCode = 'A';
-    case 2:
-      buildingCode = 'U';
-    case 3:
-      buildingCode = 'Q';
-    case 3:
-      buildingCode = 'X';
-  }
-
-  return buildingCode+year+month+day+hour+minute+second;
+  let code = ''+year + month + day + hour + minute + second
+  return code;
 }
 
 module.exports = {

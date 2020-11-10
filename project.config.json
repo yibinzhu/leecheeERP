@@ -8,11 +8,12 @@
 		"minified": true,
 		"newFeature": true
 	},
-	"appid": "wx5119177a74ff63b2",
+	"appid": "wx1a5382df53f8351b",
 	"projectname": "obada-minicloud",
-	"libVersion": "2.7.0",
+	"libVersion": "2.7.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,

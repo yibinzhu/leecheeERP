@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+      "list": "/components/list-item/list-item"
+  },
+    "navigationBarBackgroundColor": "white",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark"
+}

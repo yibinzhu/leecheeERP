@@ -1,0 +1,46 @@
+
+<view class="section">
+  <view class="section__title">多列选择器</view>
+  <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class="picker">
+      当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+    </view>
+  </picker>
+</view>
+<button class='weui-btn' type='primary' bindtap='getOrderInfo'>请求</button>
+
+<!-- <view class="page__bd">
+<view class="weui-form-preview">
+<view class="weui-form-preview__bd">
+  <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"><image src='../../images/logo.png' style='width:40px;height:40px;'></image><icon class='iconfont icon-flag_fill' style='font-size:60rpx;margin-left:10px;vertical-align:baseline'/><icon class='iconfont icon-remind' style='font-size:60rpx;margin-left:10px;vertical-align:baseline'/></view>
+          <view class="weui-form-preview__value_in-hd">¥2400.00</view>
+      </view>
+      <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"><icon class='iconfont icon-order'/>2019080385</view>
+          <view class="weui-form-preview__value"><icon class='iconfont icon-time'/>2019/06/26 16:23:12</view>
+      </view>
+      <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"><icon class='iconfont icon-coordinates'/>地址地址弟子地址</view>
+          <view class="weui-form-preview__value"></view>
+      </view>
+      <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"><icon class='iconfont icon-coordinates'/>很长很长的名字很长很长的名</view>
+          <view class="weui-form-preview__value"></view>
+      </view>
+  </view>
+</view>
+</view> -->
+
+<view class="weui-btn-area">
+<picker bindchange="changeLanguage" value="{{langIndex}}" range="{{languages}}">
+    <button type="default">{{languages[langIndex]}}</button>
+</picker>
+</view>
+
+<view class='cells'>
+  <view class='cell'>
+    <text>{{language.login}}</text>
+      <text>{{language.logout}}</text>
+  </view>
+</view>

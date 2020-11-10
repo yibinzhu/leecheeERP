@@ -1,27 +1,35 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/order/order",
-    "pages/index/index",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
     "pages/my/my",
-    "pages/bill/bill",
-    "pages/checkList/checkList",
-    "pages/logs/logs",
-    "pages/msg_success/msg_success",
-    "pages/msg_fail/msg_fail",
+    "pages/test/test",
+    "pages/billList/billList",
+    "pages/ad/settingMark/settingMark",
+    "pages/ad/admin/admin",
+    "pages/index/index",
+    "pages/myInfo/myInfo",
+    "pages/billDetail/billDetail",
     "pages/goodsInfo/goodsInfo",
-    "pages/address/address"
+    "pages/address/address",
+    "pages/ad/index/index",
+    "pages/ad/xOrderList/xOrderList",
+    "pages/ad/orderSearch/orderSearch",
+    "pages/ad/todayOrder/todayOrder",
+    "pages/ad/myBuyer/myBuyer",
+    "pages/ad/userList/userList",
+    "pages/ad/adminList/adminList",
+    "pages/ad/allList/allList",
+    "pages/ad/undoneList/undoneList",
+    "pages/ad/doneList/doneList",
+    "pages/ad/orderList/orderList",
+    "pages/ad/orderDetail/orderDetail",
+    "pages/ad/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "obada",
+    "navigationBarTitleText": "Leechee",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -37,7 +45,7 @@
         "text": "快速下单"
       },
       {
-        "pagePath": "pages/checkList/checkList",
+        "pagePath": "pages/billList/billList",
         "iconPath": "images/gouwuche-off.png",
         "selectedIconPath": "images/gouwuche-on.png",
         "text": "查看订单"

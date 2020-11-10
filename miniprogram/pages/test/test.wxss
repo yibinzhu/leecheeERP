@@ -1,0 +1,4 @@
+/* pages/test/test.wxss */
+.weui-form-preview__item icon{
+  font-size:40rpx;
+}

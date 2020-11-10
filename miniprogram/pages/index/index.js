@@ -11,12 +11,12 @@ Page({
   },
 
   onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
+    // if (!wx.cloud) {
+    //   wx.redirectTo({
+    //     url: '../chooseLib/chooseLib',
+    //   })
+    //   return
+    // }
 
     // 获取用户信息
     wx.getSetting({
@@ -34,6 +34,25 @@ Page({
         }
       }
     })
+
+    if (app.globalData.logined) {
+      try {
+        var isAdminFlag = wx.getStorageSync('isAdmin')
+        console.log('storage isAdmin value is ' + isAdminFlag)
+        if (isAdminFlag) {
+          this.directTo(true)
+        } else {
+          this.directTo(false)
+        }
+      } catch (e) {
+        // Do something when catch error
+        console.log(e)
+      }
+
+
+    } else {
+      this.login()
+    }
   },
 
   onGetUserInfo: function(e) {
@@ -66,55 +85,102 @@ Page({
       }
     })
   },
+  login: function () {
+    var that = this
 
-  // 上传图片
-  doUpload: function () {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
+    wx.showLoading({
+      title: '加载中...',
+    })
 
-        wx.showLoading({
-          title: '上传中',
-        })
 
-        const filePath = res.tempFilePaths[0]
-        
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
-
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
-            
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
-            })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
-          }
-        })
+    wx.cloud.callFunction({
+      // 需调用的云函数名
+      name: 'login',
+      // 传给云函数的参数
+      data: {
 
       },
-      fail: e => {
-        console.error(e)
+      // 成功回调
+      complete: res => {
+        app.globalData.logined = true
+
+        console.log('global logined value is' + app.globalData.logined)
+        console.log('openid is' + res.result.openid)
+
+        wx.setStorage({
+          key: 'openid',
+          data: res.result.openid,
+        });
+        app.globalData.openid = res.result.openid;
+
+        that.getAdminInfo(res.result.openid)
+
       }
     })
+
   },
+  directTo: function (isAdmin) {
+    if (isAdmin == true) {
+      wx.redirectTo({
+        url: '../ad/admin/admin',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    } else {
+      wx.switchTab({
+        url: '../order/order',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+
+    }
+  },
+  getAdminInfo: function (openid) {
+    var that = this
+    const db = wx.cloud.database()
+    db.collection('adminlist').where({
+      user: openid,
+    })
+      .get({
+        success: function (res) {
+          wx.hideLoading()
+          console.log('get admin info=>')
+          console.log(res)
+          if (res.data.length > 0) {
+            app.globalData.isAdmin = true
+            console.log('user is admin')
+            wx.setStorage({
+              key: "isAdmin",
+              data: true
+            })
+
+            that.directTo(true)
+          } else {
+            console.log('user is not admin')
+            wx.setStorage({
+              key: "isAdmin",
+              data: false
+            })
+            that.directTo(false)
+          }
+        },
+        fail: function (err) {
+          wx.hideLoading()
+
+          wx.showToast({
+            title: '登陆失败',
+          })
+
+          that.directTo(false)
+
+          consol.log(err)
+        }
+
+      })
+
+  }
+  
 
 })

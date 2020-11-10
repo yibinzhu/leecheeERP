@@ -1,0 +1,17 @@
+/* pages/myInfo/myInfo.wxss */
+.icon {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+.save-btn{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+}
+.hd{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}

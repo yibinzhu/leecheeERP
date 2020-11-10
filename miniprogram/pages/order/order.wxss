@@ -27,3 +27,33 @@
   z-index: 2000;
   background: #fff;
 }
+.thumbnail-img{
+  width: 50px; 
+  height: 50px; 
+  display: block;
+  margin-right:10px;
+  margin-bottom:10px;
+}
+.layout-row{
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+}
+.layout-col{
+  display: flex;
+  flex-direction: column;
+}
+.icon-btn{
+  font-size:22px;
+  vertical-align: baseline;
+}
+.weui-flex__item{
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+::-webkit-scrollbar{
+  width:0;
+  height:0;
+  color:transparent;
+}

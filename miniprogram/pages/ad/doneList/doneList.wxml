@@ -1,0 +1,62 @@
+
+<view class="page">
+    <view class="page__bd">
+      
+                 <view class="weui-panel" wx:for="{{orderData}}" wx:for-item="orderItem" wx:key='id' wx:for-index="idx">
+
+            <view class="weui-panel__hd weui-flex">
+               <view ><view>({{idx+1}}) 订单编号：{{orderItem.code}}</view></view>
+            <view class="weui-flex__item" style='float:right;margin-right:20px;'><view style="text-align:right;"><view class='text-comment'style='text-align:right;color:#179B16;display:{{orderItem.type == "1"?"block":"none"}}'>已完成</view>
+                        <view class='text-comment'style='text-align:right;color:#f10215;display:{{orderItem.type == "1"?"none":"block"}}'>未完成</view>
+              </view>
+            </view>
+            <view style='display:flex;flex-direction:row;justify-content:center; align-items:center;'><icon type="info_circle" size="23" bindtap='showEditItem' data-code='{{orderItem.code}}' data-id='{{orderItem._id}}' ></icon></view>
+            </view>
+
+            <navigator url='../orderDetail/orderDetail?code={{orderItem.code}}&_id={{orderItem._id}}&idx={{idx}}'>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+      <view class="weui-flex">
+              <view><view class="placeholder thumbnail-box" ><image src="{{defaultImagePath}}" class="thumbnail-img"/><image src="{{orderItem.images[0]}}" class="thumbnail-img"/>
+            </view></view>
+            <view class="weui-flex__item"><view class="placeholder" style='margin-left:80px;'>
+                <view class='text-comment'>{{orderItem.address}}</view>
+                <view class='text-comment'>{{orderItem.time}}</view>
+            </view></view>
+            <view><view class="placeholder">
+              <view class="weui-flex__item" style="text-align:right;height:60px;"><view>
+              <!-- <text class='text-comment'>合计：</text> -->
+              ₩{{filters.formatPrice(orderItem.totalPrice)}}</view><view style="font-size: 13px;color: #888888;"><text>共</text>{{orderItem.totalCount}}<text>件商品</text></view></view>
+            </view></view>
+        </view>
+
+            <view style="float:right;margin:0 0 10px 0">
+            </view>
+  <view class="weui-flex">
+  <view class="weui-flex__item" style='display:{{orderItem.comment?"block":"none"}}'><text class='text-comment'>备注：{{orderItem.comment}}</text></view>
+  </view>
+                </view>
+            </view>
+            </navigator>
+        </view>
+    </view>
+</view>
+
+
+<!-- 编辑列表格弹窗开始 -->
+  <!--屏幕背景变暗的背景  -->
+  <view class="commodity_screen" bindtap="hideEditItem" wx:if="{{showEditItemStatus}}"></view>
+  <!--弹出框  -->
+
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showEditItemStatus}}" catchtouchmove='catchTouch'>
+  
+  <view class='layout_col'>
+  <view class='menu-btn' bindtap='openDelConfirm'>删除</view>
+  <view class='menu-btn menu-btn-cancel' bindtap='hideEditItem'>取消</view>
+</view>
+
+</view>
+<!-- 编辑列表格弹窗结束 -->
+
+
+<wxs module="filters" src="../../../utils/formatPrice.wxs"></wxs>

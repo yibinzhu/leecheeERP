@@ -1,0 +1,47 @@
+<scroll-view
+        scroll-y
+    style="height:100%;"
+    bindscrolltoupper="upper"
+    bindscrolltolower="lower"
+    bindscroll="scroll">
+<view class="weui-cells weui-cells_after-title">
+   <checkbox-group bindchange="checkboxChange">
+<label class="weui-cell  weui-check__label" wx:for="{{buyerList}}" wx:for-item="item" wx:key='id' wx:for-index="idx">
+<view class="weui-cell__hd weui-check__hd_in-checkbox" style="position: relative;margin-right: 10px;" >
+<checkbox class="weui-check" value="{{item._openid}}" checked="{{item.checked}}"/>
+<icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+<icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+
+</view>
+                <view class="weui-cell__bd" style="position: relative;margin-right: 10px;">
+                    <image src="{{item.avatarUrl}}" style="width: 50px; height: 50px; display: block;border-radius:10px;float:left;margin-left:10px;margin-right:10px;"/>
+                    <view>{{item.nickName}}</view>
+                    <view style="font-size: 13px;color: #888888;">{{item.gender==1?language.nan:language.nv}}</view>
+                </view>
+                <!-- <view data-openid='{{item._openid}}' bindtap='addMark' style='display:block;whith:40px;height:40px;'><icon class='iconfont icon-createtask_fill'></icon></view> -->
+                <image src='../../../images/dingdanjiqun.png' style='width:40px;height:40px;'></image>
+      
+</label>
+  </checkbox-group>
+</view>
+</scroll-view>
+<!-- 底部菜单开始 -->
+<view class='bar-menu-bttom layout-row' wx:if="{{!showAdminListStatus}}">
+  <view class='menu-item layout-col'><image src='../../../images/ad/yijianfankui.png' style='width:32px;height:32px;' bindtap='showMenu'></image><text>{{language.bianji}}</text></view>
+</view>
+
+
+  <!--底部一级菜单  -->
+  <view class="commodity_screen" bindtap="hideMenu" wx:if="{{showMenuStatus}}"></view>
+  <!--弹出框  -->
+  <view animation="{{animationData}}" class="commodity_attr_box_menu" wx:if="{{showMenuStatus}}" catchtouchmove='catchTouch'>
+ <!-- 底部弹出菜单内容开始 -->
+
+<view class='layout_col'>
+  <!-- <view class='menu-btn' bindtap='addMark'>添加备注</view> -->
+  <view class='menu-btn' bindtap='showDelConfirm'>{{language.shanchuyonghu}}</view>
+
+  <view class='menu-btn menu-btn-cancel' bindtap='hideMenu'>{{language.quxiao}}</view>
+</view>
+<!-- 底部弹出菜单内容结束 -->
+</view>

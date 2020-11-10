@@ -1,8 +1,31 @@
 //app.js
 var mConfigs = require('./utils/config.js')
+import locales from './utils/locales'
+import T from './utils/i18n'
+
+T.registerLocale(locales);
+let savedGlobalData = wx.getStorageSync('globalData');
+let langIndex = savedGlobalData.langIndex || 0;
+T.setLocaleByIndex(langIndex);
+wx.T = T;
+
 App({
   onLaunch: function () {
-    
+    var that = this
+
+
+    this.globalData = savedGlobalData ||
+      {
+        // Language settings
+        langIndex: 0,
+        languages: locales,
+        language: locales['zh-Hans']
+      };
+
+    // load all update in locales.js
+    this.globalData.language = wx.T.getLanguage();
+
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -10,62 +33,6 @@ App({
         traceUser: true,
       })
     }
-
-    this.globalData = {}
-
-    var that = this
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    try {
-      const value = wx.getStorageSync('openid')
-      const userId = that.globalData.openid
-      if (value === undefined && value === "" && value === null && userId == null) {
-        // 登录
-        wx.login({
-          success: res => {
-            if (res.code) {
-              // 发送 res.code 到后台换取 openId, sessionKey, unionId
-              wx.request({
-                url: mConfigs.HOST_NAME + '/login',
-                data: {
-                  code: res.code,
-                },
-                method: 'POST',
-                header: {
-                  'content-type': 'application/json'
-                },
-                success: function (res) {
-                  var res = res.data;
-                  wx.setStorage({
-                    key: 'openid',
-                    data: res.openid,
-                  });
-                  that.globalData.openid = res.openid;
-                }
-              })
-            } else {
-              console.log('登陆失败' + res.errMsg);
-              wx.showToast({
-                title: '登陆失败',
-              })
-            }
-
-          }
-        })
-
-        // Do something with return value
-      } else {
-        console.log('openid is ' + value)
-        that.globalData.openid = value;
-      }
-    } catch (e) {
-      // Do something when catch error
-      console.log(e);
-    }
-
 
     // 获取用户信息
     wx.getSetting({
@@ -76,7 +43,7 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-
+              console.log(res.userInfo)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -87,14 +54,40 @@ App({
         }
       }
     })
+  }, 
+  login: function (callback) {
+    var that = this
+    wx.cloud.callFunction({
+      // 需调用的云函数名
+      name: 'login',
+      // 传给云函数的参数
+      data: {
+
+      },
+      // 成功回调
+      complete: res => {
+        that.globalData.logined = true
+
+        wx.setStorage({
+          key: 'openid',
+          data: res.result.openid,
+        });
+        that.globalData.openid = res.result.openid;
+
+        callback()
+
+      }
+    })
   },
 
   globalData: {
     userInfo: null,
     openid: null,
     phoneNum: '',
-    deliverAddress: ''
-
+    deliverAddress: '',
+    isAdmin:false,
+    logined:false,
+    adminInfo:null
   }
   
 

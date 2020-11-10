@@ -1,0 +1,21 @@
+<form bindsubmit="formSubmit">
+<view class="weui-cells__title">备注名</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="输入备注名" name="mark"/>
+        </view>
+    </view>
+</view>
+
+<view class="weui-cells__title">描述</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="输入描述" name="des"/>
+        </view>
+    </view>
+</view>
+
+<button class="weui-btn save-btn" type="primary" form-type="submit">保存</button>
+</form>

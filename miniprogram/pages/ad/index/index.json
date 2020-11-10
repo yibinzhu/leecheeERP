@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "orderList": "/pages/ad/orderList/orderList",
+    "setting": "/pages/ad/setting/setting",
+    "list": "/components/list-item/list-item"
+  },
+  "navigationBarBackgroundColor": "white",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle":"dark"
+}

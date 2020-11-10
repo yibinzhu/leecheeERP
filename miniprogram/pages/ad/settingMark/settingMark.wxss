@@ -1,0 +1,4 @@
+/* pages/ad/settingMark/settingMark.wxss */
+.save-btn{
+   margin-top:30px;
+}

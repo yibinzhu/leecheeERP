@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "list": "/components/list-item/list-item"
+  },
+  "navigationBarTitleText": "特殊订单"
+}

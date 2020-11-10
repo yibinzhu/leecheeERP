@@ -1,5 +1,0 @@
-/* pages/checkList/checkList.wxss */
-.text-conmment{
-  font-size: 13px;
-  color: #888888;
-}

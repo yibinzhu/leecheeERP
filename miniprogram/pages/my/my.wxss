@@ -1,19 +1,57 @@
 /* pages/my/my.wxss */
 .headView {
     display: flex;
+    height: 300rpx;
+    width: 100%;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50rpx;
-    height: 300rpx;
-    width: 750rpx;
-    position: relative;
+    background-color: #39b54a;
+    margin-bottom:10px;
+    text-align: center;
+    padding-top:20px;
+    padding-bottom: 20px;
+    background-image:url(https://image.weilanwl.com/color2.0/cardBg.png);
+    background-size:cover;
+    background-position:center;
 }
 
-.headView .icon {
-    position: absolute;
-    height: 180rpx;
-    width: 180rpx;
-    border-radius: 50%;
-    border: 50rpx solid #f1f1f1;
+.headView image {
+  width: 70px;
+  height:70px;
+  margin-bottom: 5px;
+}
+.orderInfo{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  background-color: white;
+}
+.orderInfo-item{
+  height:80px;
+  width:80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left:5px;
+  margin-right:5px;
+  position:relative;
+  vertical-align: middle;
+}
+.orderInfo-item image{
+  width:40px;
+  height:40px;
+}
+.weui-cell{
+  display: flex;
+  flex-direction: row;
+}
+.iconfont{
+  font-size: 20px;
+  vertical-align:baseline;
+  margin-right:10px;
 }
 

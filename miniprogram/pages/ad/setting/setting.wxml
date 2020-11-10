@@ -1,0 +1,88 @@
+
+<view class="weui-cells" style='display:{{_super?"block":"none"}}'>
+            <navigator url="../userList/userList" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                  <icon class='iconfont icon-group' style='color:#e54d42'></icon>
+                </view>
+                <view class="weui-cell__bd">{{language.yonghuliebiao}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="../adminList/adminList" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                  <icon class='iconfont icon-addressbook' style='color:#f37b1d'></icon>
+                </view>
+                <view class="weui-cell__bd">{{language.guanliyuanliebiao}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+</view>
+
+<view class="weui-cells">
+<navigator url="../orderSearch/orderSearch" hover-class="weui-cell_active" class="weui-cell weui-cell_access">
+    <view class="weui-cell__hd">
+     <icon class='iconfont icon-search' style='color:#8dc63f'></icon>
+    </view>
+    <view class="weui-cell__bd">{{language.dingdanchaxun}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</navigator>
+<navigator url="../xOrderList/xOrderList" hover-class="weui-cell_active" class="weui-cell weui-cell_access">
+    <view class="weui-cell__hd">
+     <icon class='iconfont icon-order' style='color:#39b54a'></icon>
+    </view>
+    <view class="weui-cell__bd">{{language.teshudingdan}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</navigator>
+<navigator url="../myBuyer/myBuyer" hover-class="weui-cell_active" class="weui-cell weui-cell_access">
+    <view class="weui-cell__hd">
+    <icon class='iconfont icon-addpeople' style='color:#fbbd08'></icon>
+    </view>
+    <view class="weui-cell__bd">{{language.wodekehu}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</navigator>
+</view>
+
+
+<view class="weui-cells">
+<view class="weui-cell weui-cell_access" >
+    <view class="weui-cell__hd">
+     <icon class='iconfont icon-empty' style='color:#9c26b0'></icon>
+    </view>
+    <view class="weui-cell__bd" bindtap='clearStorageConfirm'>{{language.qingchuhuancun}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</view>
+</view>
+
+<view class="weui-cells">
+<view class="weui-cell weui-cell_access" >
+    <view class="weui-cell__hd">
+      <icon class='iconfont icon-send' style='color:#e03997'></icon>
+    </view>
+    <view class="weui-cell__bd" bindtap='logoutConfirm'>{{language.tuichu}}</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+</view>
+</view>
+
+<view class="weui-footer" style='margin-top:20px;width:100%;height:20px;' bindlongtap='showModal'>
+    <view class="weui-footer__text">Copyright © 2019 Leechee Co. Ltd</view>
+</view>
+
+ 
+  <!--屏幕背景变暗的背景  -->
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <!--弹出框  -->
+
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}" catchtouchmove='catchTouch'>
+
+<form bindsubmit="formSubmit">
+ <view class="weui-cells__title" style='height:25px;'>
+ <button class="weui-btn mini-btn" type="default" size="mini"  bindtap='hideModal' style='float:left'>{{language.quxiao}}</button>
+ <button form-type="submit" class="mini-btn" type="default" size="mini" style='float:right'>{{language.queding}}</button>
+ </view>
+        <view class="weui-cells weui-cells_after-title" style='margin-top:10px;'>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="输入密码" password='true' name='password' />
+                </view>
+            </view>
+        </view>
+</form>
+</view>

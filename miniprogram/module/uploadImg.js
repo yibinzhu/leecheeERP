@@ -18,7 +18,7 @@ function uploadImg(data) {
     success: res => {
       console.log('[上传文件] 成功：', res)
 
-      that.doUpdate('bills', data.code, res.fileID)
+      // that.doUpdate('bills', data.code, res.fileID)
 
       app.globalData.fileID = res.fileID
       app.globalData.cloudPath = cloudPath

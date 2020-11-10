@@ -1,0 +1,49 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+<view class="weui-cells weui-cells_after-title">
+<view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+        <view class="weui-label">收货人</view>
+    </view>
+    <view class="weui-cell__bd">
+        <input class="weui-input" name='name'/>
+    </view>
+</view>
+
+<view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+        <view class="weui-label">联系电话</view>
+    </view>
+    <view class="weui-cell__bd">
+        <input class="weui-input" name='phone' type='number'/>
+    </view>
+</view>
+<view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+        <view class="weui-label">国家</view>
+    </view>
+    <view class="weui-cell__bd">
+        <input class="weui-input" name='country'/>
+    </view>
+</view>
+<view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+        <view class="weui-label">所在地区</view>
+    </view>
+    <view class="weui-cell__bd">
+        <input class="weui-input" name='address'/>
+    </view>
+</view>
+
+<view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+        <view class="weui-label">详细地址</view>
+    </view>
+    <view class="weui-cell__bd">
+        <input class="weui-input" name='detail'/>
+    </view>
+</view>
+
+</view>
+
+<button class="weui-btn save-btn" type="primary" form-type="submit">保存</button>
+</form>

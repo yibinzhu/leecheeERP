@@ -1,0 +1,168 @@
+<view class="weui-panel">
+            <view class="weui-panel__hd weui-flex">
+                  <view ><view>{{language.dingdanbianhao}}：{{orderData.code}}</view></view>
+            <view class="weui-flex__item" style='float:right'><view style="text-align:right;color:#f10215;">{{orderData.type === '1' ? language.yiwancheng:language.weiwancheng}}</view></view>
+            </view>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+      <view class="weui-flex">
+            <view class="weui-flex__item"><view class="placeholder">
+                <view class='text-comment'>{{orderData.address}}</view>
+                <view class='text-comment'>{{orderData.time}}</view>
+                <view class="text-comment" style='display:{{orderData.comment?"block":"none"}}'>{{language.beizhu}}：{{orderData.comment}}</view>
+            </view></view>
+            <view><view class="placeholder">
+                       <view class="weui-flex__item" style="text-align:right"><view><text class='text-comment'>{{language.gong}}：</text>₩{{filters.formatPrice(orderData.totalPrice)}}</view><view style="font-size: 13px;color: #888888;"></view></view>
+            </view></view>
+        </view>
+                </view>
+            </view>
+  <view class='weui-cells' style='margin-top:0'>
+  <scroll-view scroll-x style="height: 100px;white-space:nowrap;" >
+  <view class='weui-cell'>
+  <view class='layout-row'>
+        <block wx:for="{{orderData.images}}" wx:key="*this" wx:for-index="idx" >      
+            <view style="position: relative;margin-right: 5px;">
+          <image src="{{orderData.images[idx]}}" class="thumbnail-img" bindtap='handleImagePreview' mode="aspectFill" data-idx="{{idx}}"/>
+          <view class="weui-badge" style="position: absolute;top: -.4em;right: -.2em;background-color:#179B16;">{{idx+1}}</view>
+          </view>
+        </block>
+    </view>
+    </view>
+  </scroll-view>
+</view>
+  </view>
+         <view class="weui-cells__title weui-flex">
+               <view ><view>{{language.dingdanxiangqing}}</view></view>
+            <!-- <view class="weui-flex__item" style='float:right'><view style="text-align:right;">小计:{{filters.formatPrice(itemTotalPrice)}}</view></view> -->
+            </view>
+<scroll-view>
+        <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell" wx:for="{{bills}}" wx:key="value" wx:for-item="orderItem" wx:for-index="idx" bindtap='showMenu' data-index='{{idx}}' style='positon:relative'>
+                  <view style='width:100%'>
+                    <view style='layout-row'>
+                       <text style='margin-right:10px;'><text class='text-comment'>{{language.tupian}}</text> {{orderItem.imgNum}}</text>
+                      <text style='margin-right:10px;'>{{orderItem.color}}</text>
+                      <text style='margin-right:10px;'>{{orderItem.size}}</text>
+                      <text style='margin-right:10px;'> <text style='margin:0 10px;padding:0 px;'>{{orderItem.pickupCount}} / <text class='text-comment'>{{orderItem.count}}</text></text></text>
+                      <text style='position:absolute;right:15px;'><text class='text-comment'>₩</text>{{filters.formatPrice(orderItem.price)}}</text>
+                    </view>
+
+                    <view class='weui-flex layout-row'>
+                        <view class='weui-flex__item text-comment' style="display:{{orderItem.pickuptime?'block':'none'}}"><text>{{language.daohuoriqi}}: </text>
+                          <text style='width:80px;'>{{orderItem.pickuptime}}</text></view>
+                          <view class='weui-flex__item text-comment' style="display:{{orderItem.xMsg?'block':'none'}}"><text>{{language.teshudingdan}}: </text>
+                          <text style='width:80px;'>{{orderItem.xMsg}}</text></view>
+
+                          <view style='float:right;text-align:right' >
+                        <text class='text-comment'style='color:#179B16;display:{{orderItem.status=="0"?"none":"block"}}'>{{language.yiwancheng}}</text>
+                        <text class='text-comment'style='color:#f10215;display:{{orderItem.status=="0"?"block":"none"}}'>{{language.weiwancheng}}</text>
+                          </view>
+                    </view>
+                </view>
+                </view>
+
+ 
+
+    <!--屏幕背景变暗的背景 取货数量-->
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <!--弹出框  -->
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}" catchtouchmove='catchTouch'>
+  <slider show-value max="{{max}}" value='0' bindchange='getSliderNum'/>
+
+  <view style='display:flex;flex-direction:row;justify-content;margin-top:10px;'><button class="weui-btn mini-btn" type="primary" size="mini" bindtap='numInputDone'>{{language.queding}}</button></view>
+  </view>
+</view>
+
+<!-- 特殊订单弹窗开始 -->
+  <!--屏幕背景变暗的背景  -->
+  <view class="commodity_screen" bindtap="hideSetXbill" wx:if="{{showSetXbillStatus}}"></view>
+  <!--弹出框  -->
+
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showSetXbillStatus}}" catchtouchmove='catchTouch' style='height:300px;'>
+       <view class="weui-cells__title">{{language.chuliyuanyin}}</view>
+        <view class="weui-cells weui-cells_after-title">
+            <radio-group bindchange="radioChange">
+                <label class="weui-cell weui-check__label" wx:for="{{radioItems}}" wx:key="value">
+                    <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+
+                    <view class="weui-cell__bd">{{item.name}}</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                        <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                    </view>
+                </label>
+            </radio-group>
+
+ <view class="weui-cells weui-cells_after-title" style='display:{{showInputBar}}'>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="{{language.chuliyuanyin}}" bindblur='getInputInfo' value='{{reason_info}}' />
+                </view>
+            </view>
+            </view>
+        </view>
+
+  <view style='display:flex;flex-direction:row;justify-content;margin-top:20px;'><button class="weui-btn mini-btn" type="primary" size="mini" bindtap='setXbill'>{{language.queding}}</button></view>
+
+
+
+
+</view>
+<!-- 特殊订单弹窗结束 -->
+
+<!-- 修改价格弹窗开始 -->
+  <!--屏幕背景变暗的背景  -->
+  <view class="commodity_screen" bindtap="hideSetBillInfo" wx:if="{{showSetBillInfoStatus}}"></view>
+  <!--弹出框  -->
+
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showSetBillInfoStatus}}" catchtouchmove='catchTouch'>
+  
+         <view class="weui-cells weui-cells_after-title">
+          <form bindsubmit='editBillInfo'>
+                <view class="weui-cell">
+                    <view class='weui-flex'>
+                    <view class='weui-flex__item weui-flex'>
+                      <view class='weui-flex__item' style='text-align:center'><text>{{bills[clickedIndex].color}}</text></view>
+                       <view class='weui-flex__item' style='text-align:center'><text> {{bills[clickedIndex].size}}</text></view>
+                        <view class='weui-flex__item' style='text-align:center'><text>{{bills[clickedIndex].pickupCount}} / <text class='text-comment'>{{bills[clickedIndex].count}}</text></text></view>
+                    </view>
+                          <view class='weui-flex__item' style='float:right;margin-right:10px;'>
+                        
+  <input type='number'  name='price' style='border-bottom:1px solid #0F2543;margin-left:5px;margin-right:5px;' placeholder='₩:'/>
+                          </view>
+                      </view>
+
+ <view style='float:right;'><button class="weui-btn" type="primary" form-type='submit' style='width:50px;height:30px;font-size:12px;padding-left:0;padding-right:0;'>{{language.xiugai}}</button></view>
+
+                    </view>
+</form>
+                </view>
+</view>
+<!-- 修改价格弹窗结束 -->
+
+
+  <!--底部一级菜单  -->
+  <view class="commodity_screen" bindtap="hideMenu" wx:if="{{showMenuStatus}}"></view>
+  <!--弹出框  -->
+  <view animation="{{animationData}}" class="commodity_attr_box_menu" wx:if="{{showMenuStatus}}" catchtouchmove='catchTouch'>
+ <!-- 底部弹出菜单内容开始 -->
+
+<view class='layout_col'>
+  <view class='menu-btn' bindtap='showModal'>{{language.quhuoshuliang}}</view>
+  <view class='menu-btn'>
+    <picker class="weui-btn" mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="bindDateChange">
+          {{language.daohuoriqi}}
+            </picker>
+  </view>
+  <view class='menu-btn' bindtap='showSetBillInfo'>{{language.xiugaixinxi}}</view>
+  <view class='menu-btn' bindtap='showSetXbill'>{{language.teshudingdan}}</view>
+  <view class='menu-btn' bindtap='initBillItem'>{{language.chushihuadingdan}}</view>
+
+  <view class='menu-btn menu-btn-cancel' bindtap='hideMenu'>{{language.quxiao}}</view>
+</view>
+<!-- 底部弹出菜单内容结束 -->
+</view>
+
+ </scroll-view>
+<button class="weui-btn save-btn" type="primary" bindtap='openConfirm'>{{language.baocun}}</button>
+<wxs module="filters" src="../../../utils/formatPrice.wxs"></wxs>

@@ -1,0 +1,41 @@
+page{
+  background-color: #F8F8F8;
+}
+.nav-bar{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 5px;
+  background-color: white;
+}
+.nav-item{
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  text-align: center;
+}
+.nav-item icon{
+  font-size:30px;
+  height: 40px;
+}
+.nav-item text{
+  color: #333333;
+  font-size:25rpx;
+}
+.list-item{
+  margin-top:0
+}
+
+.text-comment{
+  font-size: 13px;
+  color: #888888;
+}
+.commodity_attr_box{
+  height:100px;
+}

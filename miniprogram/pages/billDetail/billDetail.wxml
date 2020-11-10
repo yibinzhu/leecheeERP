@@ -1,0 +1,63 @@
+   <view class="weui-panel">
+            <view class="weui-panel__hd weui-flex">
+                  <view ><view>{{language.dingdanbianhao}}：{{orderData[0].code}}</view></view>
+            <view class="weui-flex__item" style='float:right'><view style="text-align:right;color:#f10215;">{{orderData[0].type === '1' ? language.yiwancheng:language.weiwancheng}}</view></view>
+            </view>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+      <view class="weui-flex">
+            <view class="weui-flex__item"><view class="placeholder">
+                <view class='text-comment'>{{orderData[0].address}}</view>
+                <view class='text-comment'>{{orderData[0].time}}</view>
+                <view class="text-comment" style="display:{{orderData[0].comment?'block':'none'}}">{{language.beizhu}}：{{orderData[0].comment}}</view>
+            </view></view>
+            <view><view class="placeholder">
+                       <view class="weui-flex__item" style="text-align:right"><view><text class='text-comment'>{{language.gong}}：</text>₩{{filters.formatPrice(orderData[0].totalPrice)}}</view><view style="font-size: 13px;color: #888888;"></view></view>
+            </view></view>
+        </view>
+                </view>
+            </view>
+
+  <view class="weui-cells" style='margin-top:0;'>
+  <scroll-view scroll-x style="height: 100px;white-space:nowrap;" >
+  <view class='weui-cell'>
+  <view class='layout-row'>
+        <block wx:for="{{orderData[0].images}}" wx:key="*this" wx:for-index="idx" > 
+          <view style="position: relative;margin-right: 5px;margin-bottom:10px;margin-left:5px;">
+          <image src="{{orderData[0].images[idx]}}" class="thumbnail-img" bindtap='handleImagePreview' mode="aspectFill" data-idx="{{idx}}"/>
+          <view class="weui-badge" style="position: absolute;top: -.4em;right: -.2em;background-color:#179B16">{{idx+1}}</view>
+          </view>
+        </block>
+    </view>
+    </view>
+  </scroll-view>
+    </view>
+  </view>
+        <view class="weui-cells__title">{{language.dingdanxiangqing}}</view>
+        <view class="weui-cells weui-cells_after-title">
+
+<label class="weui-cell" wx:for="{{bills}}" wx:key="index" wx:for-item="orderItem">
+         <view style='width:100%'>
+                    <view class='weui-flex'>               
+                       <view class='weui-flex__item'><text style='margin-right:10px;text-align:center'><text class='text-comment'>{{language.tupian}}</text> {{orderItem.imgNum}}</text></view>
+                      <view class='weui-flex__item'><text style='margin-right:10px;text-align:center'>{{orderItem.color}}</text></view>
+                      <view class='weui-flex__item'><text style='margin-right:10px;text-align:center'>{{orderItem.size}}</text></view>
+                      <view class='weui-flex__item'><text style='margin-right:10px;text-align:center'> <text style='margin:0 10px;pading:0 px;'>{{orderItem.pickupCount}} / <text class='text-comment'>{{orderItem.count}}</text></text></text></view>
+                    
+                      <text style='width:80px;float:right;text-align:right'><text class='text-comment'>₩</text>{{filters.formatPrice(orderItem.price)}}</text>
+                    </view>
+
+                    <view class='weui-flex layout-row'>
+                          <view style='float:right;text-align:right' >
+                        <text class='text-comment'style='color:#179B16;display:{{orderItem.status=="0"?"none":"block"}}'>{{language.yiwancheng}}</text>
+                        <text class='text-comment'style='color:#f10215;display:{{orderItem.status=="0"?"block":"none"}}'>{{language.weiwancheng}}</text>
+                          </view>
+
+                          <view class='weui-flex__item text-comment' style="display:{{orderItem.pickuptime?'block':'none'}}"><text>{{language.daohuoriqi}}: </text>
+                          <text style='width:80px;'>{{orderItem.pickuptime}}</text></view>
+<view style='float:right;margin:0 0 10px 10px;display:{{orderItem.xMsg?"block":"none"}}' class='text-comment'><text>{{language.tishi}}:{{orderItem.xMsg}}</text></view>
+                    </view>
+                </view>
+  </label>
+        </view>
+<wxs module="filters" src="../../utils/formatPrice.wxs"></wxs>
